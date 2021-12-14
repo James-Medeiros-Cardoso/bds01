@@ -28,12 +28,12 @@ public class EmployeeControllerIT {
 	@Autowired
 	private ObjectMapper objectMapper;
 	
-	@Test
+	@Test //retorna os recursos (dados) paginados e ordenados por nome
 	public void findAllShouldReturnPagedResourcesSortedByName() throws Exception {
 		
 		ResultActions result =
 				mockMvc.perform(get("/employees")
-					.contentType(MediaType.APPLICATION_JSON));
+					.contentType(MediaType.APPLICATION_JSON)); //tem que retornar ordenado por nome sem estar na requisição
 
 		result.andExpect(status().isOk());
 		result.andExpect(jsonPath("$.content").exists());
@@ -42,10 +42,12 @@ public class EmployeeControllerIT {
 		result.andExpect(jsonPath("$.content[2].name").value("Andressa"));
 	}
 	
-	@Test
+	@Test //deve inserir um recurso
 	public void insertShouldInsertResource() throws Exception {
 
+		//instanciar o empregado e o id do departamento
 		EmployeeDTO dto = new EmployeeDTO(null, "Joaquim", "joaquim@gmail.com", 1L);
+		
 		String jsonBody = objectMapper.writeValueAsString(dto);
 		
 		ResultActions result =
@@ -54,10 +56,10 @@ public class EmployeeControllerIT {
 					.contentType(MediaType.APPLICATION_JSON)
 					.accept(MediaType.APPLICATION_JSON));
 		
-		result.andExpect(status().isCreated());
-		result.andExpect(jsonPath("$.id").exists());
-		result.andExpect(jsonPath("$.name").value("Joaquim"));
-		result.andExpect(jsonPath("$.email").value("joaquim@gmail.com"));
-		result.andExpect(jsonPath("$.departmentId").value(1L));
+		result.andExpect(status().isCreated()); //objeto foi criado e retorna código 201
+		result.andExpect(jsonPath("$.id").exists()); //id existe?
+		result.andExpect(jsonPath("$.name").value("Joaquim")); //verificar nome
+		result.andExpect(jsonPath("$.email").value("joaquim@gmail.com")); //verificar email
+		result.andExpect(jsonPath("$.departmentId").value(1L)); //verificar id do departamento
 	}	
 }

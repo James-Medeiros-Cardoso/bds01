@@ -18,7 +18,7 @@ public class Employee {
 	public String name;
 	public String email;
 	
-	@ManyToOne
+	@ManyToOne //muitos funcionários para um departamento, 1 funcionário tem 1 departamento
 	@JoinColumn(name = "department_id")
 	public Department department;
 	

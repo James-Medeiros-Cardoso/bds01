@@ -10,8 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "tb_department")
+@Entity //mapeado com o JPA
+@Table(name = "tb_department") //mapeado com o JPA
 public class Department {
 
 	@Id
@@ -19,7 +19,7 @@ public class Department {
 	public Long id;
 	public String name;
 	
-	@OneToMany(mappedBy = "department")
+	@OneToMany(mappedBy = "department") //um departamento tem vários funcionários
 	public List<Employee> employees = new ArrayList<>();
 	
 	public Department() {

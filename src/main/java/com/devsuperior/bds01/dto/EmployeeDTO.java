@@ -10,7 +10,7 @@ public class EmployeeDTO implements Serializable {
 	private Long id;
 	private String name;
 	private String email;
-	private Long departmentId;
+	private Long departmentId; //id do departamento do funcionário
 	
 	public EmployeeDTO() {
 	}
